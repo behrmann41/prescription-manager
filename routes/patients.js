@@ -27,4 +27,11 @@ router.post('/new', function (req, res, next){
   }
 })
 
+router.get('/:id', function (req, res, next){
+  var username = req.session.user
+  Patient.findOne(req.params.id).then(function (patient){
+    res.render('patients/show', { title: "Patient Info", user: username, patient: patient})
+  })
+})
+
 module.exports = router;

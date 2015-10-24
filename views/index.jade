@@ -21,7 +21,8 @@ block content
             tbody
               for patient in allPatients
                 tr
-                  td= patient.firstname
+                  td
+                    a(href='/patients/' + patient._id)= patient.firstname
                   td= patient.lastname
                   td= patient.DoB
 

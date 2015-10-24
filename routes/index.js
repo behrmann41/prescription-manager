@@ -11,9 +11,7 @@ router.get('/', function(req, res, next) {
 router.get('/home', function (req, res, next){
   var username = req.session.user
   Patient.find().then(function (patients){
-    console.log(patients)
     res.render('index', { title: 'Prescription Manager', user: username, allPatients: patients })
-
   })
 })
 

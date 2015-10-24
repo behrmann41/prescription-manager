@@ -1,5 +1,10 @@
 extends ../layout
 
 block content
+  .container
+    h2= title
+    p= patient.firstname
+    p= patient.lastname
+    p= patient.DoB
 
-  
+    a(href='/home') Home
