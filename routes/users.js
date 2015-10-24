@@ -38,9 +38,9 @@ router.post('/register', function (req, res, next){
         errors.push('Email already in use');
         res.render('users/register', {  title: 'Create an account', errors: errors})
       } else {
-        User.insert(req.body.username,req.body.email, hash)
+        User.insert(req.body.username,req.body.email,hash)
         req.session.user = req.body.username
-        res.redirect('/')
+        res.redirect('/home')
       }
     })
   }
@@ -56,7 +56,7 @@ router.post('/login', function (req, res, next){
     if (user){
       if (bcrypt.compareSync(req.body.password, user.passwordDigest)){
         req.session.user = user.username
-        res.redirect('/')
+        res.redirect('/home')
       } else {
         errors.push('Invalid Email / Password')
         res.render('users/login', {  title: 'Login', errors: errors})

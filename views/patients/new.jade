@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      .col-md-7.col-md-offset-2
+        .text-center
+          h2 New Patient
+          include errors.jade
+        form.form-horizontal(action='/patients/new', method='POST')
+          .form-group
+            label.col-sm-2.label-control(for='firstname') First Name:
+            .col-sm-10
+              input#email.form-control(type='text' name='firstname' placeholder='First Name' onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required)
+          .form-group
+            label.col-sm-2.label-control(for='lastname') Last Name:
+            .col-sm-10
+              input#lastname.form-control(type='text' name='lastname' placeholder='Last Name' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required)
+          .form-group
+            label.col-sm-2.label-control(for='birthday') Date of Birth:
+            .col-sm-10
+              input#birthday.form-control(type='date' name='birthday' placeholder='Date of Birth' onfocus="this.placeholder= ''" onblur="this.placeholder = 'Date of Birth'" required)
+          .form-group
+            .col-sm-offset-2.col-sm-9
+              button.btn.btn-primary(type='submit') Add Patient
+              a(style="margin-left: 15px;" href='/home') Cancel

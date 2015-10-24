@@ -1,6 +1,28 @@
 extends layout
 
 block content
-  .container
-    h1= title
-    p A Solution for Practioners and their Patients!
+  if (!user)
+    .container
+      h1= title
+      p A Solution for Practioners and their Patients!
+  if (user)
+    .container
+      h1= title
+      p Welcome #{user}
+      .row
+        .col-md-4
+          h3 Patient List
+          table.table.table-striped.table-bordered
+            thead
+              tr
+                th First Name
+                th Last Name
+                th Date of Birth
+            tbody
+              for patient in allPatients
+                tr
+                  td= patient.firstname
+                  td= patient.lastname
+                  td= patient.DoB
+
+      a(href='/patients/new') Add a new patient
