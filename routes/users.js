@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../lib/userScripts.js')
+var User = require('../lib/users.js')
 var bcrypt = require('bcrypt')
 
 
