@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var Patient = require('../lib/patients.js')
+var Prescription = require('../lib/prescriptions.js')
 
 router.get('/new', function (req, res, next){
   var username = req.session.user

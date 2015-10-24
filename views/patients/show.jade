@@ -2,9 +2,42 @@ extends ../layout
 
 block content
   .container
-    h2= title
-    p= patient.firstname
-    p= patient.lastname
-    p= patient.DoB
-
-    a(href='/home') Home
+    .row
+      .col-md-5
+        section
+          h1= title
+          p= patient.firstname
+          p= patient.lastname
+          p= patient.DoB
+        section
+          h3 Prescriptions
+          table.table-striped
+            tbody#tbody
+          a(href='/home') Home
+      .col-md-5.col-md-offset-1
+        h4 Add a Prescription
+        .text-center
+          include errors.jade
+        form.form-horizontal(action='/prescriptions/new', method='POST')
+          .form-group
+            label.col-sm-2.label-control(for='medication') Medication:
+            .col-sm-5.col-sm-offset-1
+              select#medication.form-control(name='medication' required)
+                option(value='tylenol') Tylenol
+                option(value='advil') Advil
+                option(value='benadryl') Benadryl
+                option(value='claritin') Claritin
+                option(value='excedrin') Excedrin
+                option(value='motrin') Motrin-AF
+          .form-group
+            label.col-sm-2.label-control(for='doctor') Doctor:
+            .col-sm-5.col-sm-offset-1
+              select#doctor.form-control(name='doctor' required)
+                option(value='Dr. Dre') Dr. Dre
+          .form-group
+            label.col-sm-2.label-control(for='date') Date:
+            .col-sm-5.col-sm-offset-1
+              input#date.form-control(type='date' name='date' required)
+          .form-group
+            .col-sm-8
+              button#addscript.btn.btn-primary(type='submit') Add Prescription
