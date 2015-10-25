@@ -6,7 +6,7 @@ $(function() {
           var med = script.medication,
               doc = script.doctor,
               date = script.date
-          $('#tbody').append('<tr><td>' + med + '</td><td>' + doc + '</td><td>' + date + '</td></tr>')
+          $('#scriptlist').append('<section><p><strong>' + med + ': ' + '</strong>Prescribed By ' + doc + ' on ' + date + '</p></section>')
         })
     })
   }
@@ -23,7 +23,7 @@ $(function() {
       dataType: 'JSON',
       data: prescription,
       success: function (data){
-        $('#tbody').append('<tr><td>' + data.medication + '</td><td>' + data.doctor + '</td><td>' + data.date + '</td></tr>')
+        $('#scriptlist').append('<section><p><strong>' + med + ': ' + '</strong>Prescribed By ' + doc + ' on ' + date + '</p></section>')
       },
       error: function (error){
         console.log('error', error)
