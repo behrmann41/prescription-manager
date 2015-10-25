@@ -20,7 +20,7 @@ router.post('/new', function (req, res, next){
       res.render('patients/show', { title: "Patient Info", user: username, patient: patient, errors: errors})
     })
   } else {
-    Prescription.insert(req.body.medication, req.body.doctor, req.body.date).then(function (prescription){
+    Prescription.insert(req.body).then(function (prescription){
       res.json(prescription)
     })
   }
