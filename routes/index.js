@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/home', function (req, res, next){
   var username = req.session.user
-  Patient.find().then(function (patients){
+  var id = req.session.id
+  Patient.findIn(id).then(function (patients){
     res.render('index', { title: 'Prescription Manager', user: username, allPatients: patients })
   })
 })

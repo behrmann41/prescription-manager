@@ -26,10 +26,4 @@ router.post('/new', function (req, res, next){
   }
 })
 
-router.get('/data', function (req, res, next){
-  Prescription.find().then(function (prescriptions){
-    res.json(prescriptions)
-  })
-})
-
 module.exports = router

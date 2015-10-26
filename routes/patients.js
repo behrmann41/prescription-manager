@@ -9,6 +9,7 @@ router.get('/new', function (req, res, next){
 })
 
 router.post('/new', function (req, res, next){
+  var id = req.session.id
   var username = req.session.user
   var errors = [];
   if (!req.body.firstname.trim()){
@@ -23,8 +24,10 @@ router.post('/new', function (req, res, next){
   if (errors.length){
     res.render('patients/new', {  title: "Add new patient", user: username, errors: errors  })
   } else {
-    Patient.insert(req.body.firstname, req.body.lastname, req.body.birthday)
-    res.redirect('/home')
+    Patient.insert(req.body.firstname, req.body.lastname, req.body.birthday).then(function (patient){
+      Patient.update(patient._id, id)
+      res.redirect('/home')
+    })
   }
 })
 
