@@ -11,7 +11,11 @@ block content
           p= patient.DoB
         section
           h3 Prescriptions
-          section#scriptlist
+          for script in prescriptions
+            section
+              p
+                strong #{script.medication}:
+                |Prescribed By #{script.doctor} on  #{script.date}
 
           a(href='/home') Home
       .col-md-5.col-md-offset-1

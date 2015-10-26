@@ -31,7 +31,13 @@ router.post('/new', function (req, res, next){
 router.get('/:id', function (req, res, next){
   var username = req.session.user
   Patient.findOne(req.params.id).then(function (patient){
-    res.render('patients/show', { title: "Patient Info", user: username, patient: patient})
+    var id = String(patient._id)
+    Prescription.findIn(id).then(function (prescriptions){
+      res.render('patients/show', { title: "Patient Info",
+                                    user: username,
+                                    patient: patient,
+                                    prescriptions: prescriptions})
+    })
   })
 })
 
