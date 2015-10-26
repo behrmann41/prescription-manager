@@ -38,7 +38,8 @@ block content
             label.col-sm-2.label-control(for='doctor') Doctor:
             .col-sm-5.col-sm-offset-1
               select#doctor.form-control(name='doctor' required)
-                option(value='Dr. Dre') Dr. Dre
+                for doctor in doctors
+                  option(value=doctor.username)= doctor.username
           .form-group
             label.col-sm-2.label-control(for='date') Date:
             .col-sm-5.col-sm-offset-1

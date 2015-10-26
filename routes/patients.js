@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var Patient = require('../lib/patients.js')
 var Prescription = require('../lib/prescriptions.js')
+var Doctor = require('../lib/users.js')
 
 router.get('/new', function (req, res, next){
   var username = req.session.user
@@ -36,10 +37,15 @@ router.get('/:id', function (req, res, next){
   Patient.findOne(req.params.id).then(function (patient){
     var id = String(patient._id)
     Prescription.findIn(id).then(function (prescriptions){
+      Doctor.find().then(function(doctors){
+      console.log(doctors)
       res.render('patients/show', { title: "Patient Info",
                                     user: username,
                                     patient: patient,
-                                    prescriptions: prescriptions})
+                                    prescriptions: prescriptions,
+                                    doctors: doctors
+                                  })
+      })
     })
   })
 })
