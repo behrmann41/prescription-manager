@@ -37,7 +37,7 @@ router.get('/:id', function (req, res, next){
   Patient.findOne(req.params.id).then(function (patient){
     var id = String(patient._id)
     Prescription.findIn(id).then(function (prescriptions){
-      Doctor.find().then(function(doctors){
+      Doctor.find().then(function (doctors){
       console.log(doctors)
       res.render('patients/show', { title: "Patient Info",
                                     user: username,
