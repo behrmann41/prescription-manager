@@ -3,7 +3,7 @@ var router = express.Router();
 var Patient = require('../lib/patients.js')
 var Appointment = require('../lib/appointments.js')
 var User = require('../lib/users.js')
-var result = {};
+
 
 
 /* GET home page. */
@@ -18,6 +18,7 @@ router.get('/home', function (req, res, next){
   var email = req.session.email
   User.findOneEmail(email).then(function (user){
     return Appointment.find(user._id).then(function (appointments){
+      var result = {}
       result['user'] = user
       result['appointments'] = appointments
       result['patients'] = []
