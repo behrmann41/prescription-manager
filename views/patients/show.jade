@@ -12,34 +12,30 @@ block content
         section
           h3 Prescriptions
           section#scriptlist
-          for script in prescriptions
-            section
-              p
-                strong #{script.medication}:
-                |  Prescribed By #{script.doctor} on  #{script.date}
+          //- for script in prescriptions
+          //-   section
+          //-     p
+          //-       strong #{script.medication}:
+          //-       |  Prescribed By #{script.user} on  #{script.date}
 
           a(href='/home') Home
       .col-md-5.col-md-offset-1
         h4 Add a Prescription
         .text-center
           include errors.jade
-        form.form-horizontal(action='/prescriptions/new', method='POST')
+        form.form-horizontal(action='/prescriptions', method='POST')
           .form-group
-            label.col-sm-2.label-control(for='medication') Medication:
+            label.col-sm-2.label-control(for='drug') Medication:
             .col-sm-5.col-sm-offset-1
-              select#medication.form-control(name='medication' required)
-                option(value='Tylenol') Tylenol
-                option(value='Advil') Advil
-                option(value='Benadryl') Benadryl
-                option(value='Claritin') Claritin
-                option(value='Excedrin') Excedrin
-                option(value='Motrin') Motrin-AF
+              select#drug.form-control(name='drug' required)
+                for medication in medications
+                  option(value=medication._id)= medication.name
           .form-group
             label.col-sm-2.label-control(for='doctor') Doctor:
             .col-sm-5.col-sm-offset-1
               select#doctor.form-control(name='doctor' required)
-                for doctor in doctors
-                  option(value=doctor.username)= doctor.username
+                for user in users
+                  option(value=user._id)= user.username
           .form-group
             label.col-sm-2.label-control(for='date') Date:
             .col-sm-5.col-sm-offset-1

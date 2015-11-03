@@ -2,13 +2,15 @@ var express = require('express')
 var router = express.Router()
 var Patient = require('../lib/patients.js')
 var Prescription = require('../lib/prescriptions.js')
+var Medication = require('../lib/medications.js')
+var User = require('../lib/users.js')
 
-router.post('/new', function (req, res, next){
+router.post('/', function (req, res, next){
   var errors = []
-  if (!req.body.medication.trim()){
+  if (!req.body.medicationId.trim()){
     errors.push('Need to select a Medication')
   }
-  if (!req.body.doctor.trim()){
+  if (!req.body.userId.trim()){
     errors.push('Need to select a Doctor')
   }
   if (!req.body.date.trim()){
@@ -20,7 +22,15 @@ router.post('/new', function (req, res, next){
       res.render('patients/show', { title: "Patient Info", user: username, patient: patient, errors: errors})
     })
   } else {
-    Prescription.insert(req.body).then(function (prescription){
+    var input = {}
+    var medId = Medication.id(req.body.medicationId)
+    var docId = User.id(req.body.userId)
+    var patId = Patient.id(req.body.patientId)
+    input["medicationId"] = medId
+    input["userId"] = docId
+    input["patientId"] = patId
+    input["date"] = req.body.date
+    Prescription.insert(input).then(function (prescription){
       res.json(prescription)
     })
   }

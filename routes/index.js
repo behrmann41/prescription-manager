@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home', function (req, res, next){
-
   var username = req.session.user
   var email = req.session.email
   User.findOneEmail(email).then(function (user){

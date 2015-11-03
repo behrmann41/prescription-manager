@@ -9,7 +9,8 @@ var cookieSession = require('cookie-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var patients = require('./routes/patients');
-var prescriptions = require('./routes/prescriptions')
+var prescriptions = require('./routes/prescriptions');
+var medications = require('./routes/medications');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/patients', patients);
 app.use('/prescriptions', prescriptions)
+app.use('/medications', medications)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

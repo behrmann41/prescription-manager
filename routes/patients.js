@@ -4,6 +4,7 @@ var Patient = require('../lib/patients.js')
 var Prescription = require('../lib/prescriptions.js')
 var User = require('../lib/users.js')
 var Appointment = require('../lib/appointments.js')
+var Medication = require('../lib/medications.js')
 
 router.get('/new', function (req, res, next){
   var username = req.session.user
@@ -45,15 +46,47 @@ router.post('/new', function (req, res, next){
 router.get('/:id', function (req, res, next){
   var username = req.session.user
   Patient.findOne(req.params.id).then(function (patient){
-    var id = String(patient._id)
-    Prescription.findIn(id).then(function (prescriptions){
-      User.find().then(function (users){
-      res.render('patients/show', { title: "Patient Info",
+    User.find().then(function(users){
+      Medication.find().then(function (medications){
+        res.render('patients/show', { title: "Patient Info",
                                     user: username,
                                     patient: patient,
-                                    prescriptions: prescriptions,
-                                    users: users
+                                    users: users,
+                                    medications: medications
                                   })
+      })
+    })
+  })
+})
+
+router.get('/:id/data', function (req, res, next){
+  var dateArray = []
+  var currentPrescription = {}
+  var results = [];
+
+  Patient.findOne(req.params.id).then(function (patient){
+    return Prescription.findIn(patient._id).then(function (prescriptions){
+      return prescriptions
+    })
+  })
+  .then(function (prescriptions){
+    var medPromises = [];
+    var userPromises = [];
+    prescriptions.forEach(function (prescription){
+      dateArray.push(prescription.date)
+      medPromises.push(Medication.findById(prescription.medicationId))
+      userPromises.push(User.findById(prescription.userId))
+    })
+    Promise.all(medPromises).then(function (medications){
+      Promise.all(userPromises).then(function (users){
+        for (var i = 0; i < medications.length; i++) {
+          for (var j = 0; j < users.length; j++) {
+            currentPrescription.date = dateArray[i]
+            currentPrescription.name = medications[i].name
+            currentPrescription.user = users[j].username
+          };
+          // console.log(currentPrescription)
+        };
       })
     })
   })

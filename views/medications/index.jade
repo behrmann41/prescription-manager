@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  .container
+    h1= title
+    ul
+      for medication in medications
+        li= medication.name
+    section
+      a(href='/medications/new') Add a medication to library
