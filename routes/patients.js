@@ -61,7 +61,6 @@ router.get('/:id', function (req, res, next){
 
 router.get('/:id/data', function (req, res, next){
   var dateArray = []
-  var currentPrescription = {}
   var results = [];
 
   Patient.findOne(req.params.id).then(function (patient){
@@ -79,14 +78,15 @@ router.get('/:id/data', function (req, res, next){
     })
     Promise.all(medPromises).then(function (medications){
       Promise.all(userPromises).then(function (users){
+        var currentPrescription;
         for (var i = 0; i < medications.length; i++) {
-          for (var j = 0; j < users.length; j++) {
-            currentPrescription.date = dateArray[i]
-            currentPrescription.name = medications[i].name
-            currentPrescription.user = users[j].username
-          };
-          // console.log(currentPrescription)
-        };
+          currentPrescription = {};
+          currentPrescription.date = dateArray[i]
+          currentPrescription.name = medications[i].name
+          currentPrescription.user = users[i].username
+          results.push(currentPrescription)
+        }
+        res.json(results)
       })
     })
   })
