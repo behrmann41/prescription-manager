@@ -6,6 +6,7 @@ var User = require('../lib/users.js')
 var Appointment = require('../lib/appointments.js')
 var Medication = require('../lib/medications.js')
 
+
 router.get('/new', function (req, res, next){
   var username = req.session.user
   res.render('patients/new', {  title: "Add new patient", user: username  })
