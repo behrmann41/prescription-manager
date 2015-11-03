@@ -40,7 +40,8 @@ router.post('/register', function (req, res, next){
       } else {
         User.insert(req.body.username,req.body.email,hash).then(function(user){
           req.session.user = user.username
-          req.session.id = user._id
+          req.session.email = user.email
+          req.session.id = user.id
           res.redirect('/home')
         })
       }
@@ -58,7 +59,8 @@ router.post('/login', function (req, res, next){
     if (user){
       if (bcrypt.compareSync(req.body.password, user.passwordDigest)){
         req.session.user = user.username
-        req.session.id = user._id
+        req.session.email = user.email
+        req.session.id = user.id
         res.redirect('/home')
       } else {
         errors.push('Invalid Email / Password')
