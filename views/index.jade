@@ -25,15 +25,17 @@ block content
                     a(href='/patients/' + patient._id)= patient.firstname
                   td= patient.lastname
                   td= patient.DoB
+          section
+            a(href='/patients/new') Add a New Patient
+          section
+            a(href='/medications') List of Medications
         .col-md-4.col-md-offset-1
           h3 Chat
-          ul#messages
+          div#chatwindow
+            div#messagewindow
+              ul#messages
           form#chatform.form(action="")
             .form-group
-              input#m.form-control(type='text' autocomplete="off")
+              input#m.form-control(type='text' autocomplete="off" placeholder='Enter Text Here')
             .form-group
-              button.btn.btn-default Send
-      section
-        a(href='/patients/new') Add a New Patient
-      section
-        a(href='/medications') List of Medications
+              button.btn.btn-default Send Message
