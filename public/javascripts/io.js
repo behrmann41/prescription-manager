@@ -9,7 +9,6 @@ $('#chatform').submit(function(){
 
 socket.on('chat message', function(msg, personname){
   var textdiv = $("#messagewindow");
-  var chatdiv = $("#chatwindow");
   $('#messages').append($('<li>').text(personname + " says " + msg));
   textdiv.scrollTop(textdiv.prop('scrollHeight'));
 });
